@@ -1,0 +1,14 @@
+---
+#Yaml file to check the packages installed or not in the remote server.
+  - hosts: webservers
+    tasks:
+      - name: get the rpm package facts
+        package_facts:
+          manager: "auto"
+
+      - name: Package status
+        debug:
+          msg: "{{ item }} {{ 'installed' if item in ansible_facts.packages else 'not installed' }}"
+        with_items:
+          - httpd
+          - vi

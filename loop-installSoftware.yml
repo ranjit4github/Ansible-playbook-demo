@@ -1,0 +1,9 @@
+---
+ - hosts: webservers
+   become: true
+   tasks:
+     - name: Install Apache
+       yum: name={{item}} state=present update_cache=yes
+       loop:
+        - git
+        - httpd

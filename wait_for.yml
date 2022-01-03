@@ -1,0 +1,6 @@
+---
+- hosts: webserver
+  become: true
+  tasks:
+    - service: name=apache2 state=started
+    - wait_for: port=80 state=started

@@ -1,0 +1,11 @@
+ - hosts: AppServer
+   become: true
+   tasks:
+    - name: Install web service and wget , curl
+      yum: name={{ item }} state=present update_cache=yes
+      with_items:
+            - httpd
+            - wget
+            - curl
+    - name: Copy index file
+      copy: src=/etc/ansible/index.html dest=/var/www/html/

@@ -1,0 +1,13 @@
+ - hosts: webservers
+   tasks:
+     - name: get the rpm package facts
+       package_facts:
+         manager: "auto"
+         
+     - name: Package status
+       debug:
+        msg: "{{ item }} {{ 'installed' if item in ansible_facts.packages else 'not installed' }}"
+       loop:
+        - httpd
+        - git
+        - tomcat

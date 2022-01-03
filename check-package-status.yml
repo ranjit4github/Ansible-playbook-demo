@@ -1,0 +1,9 @@
+---
+#Yaml file to check the packages installed or not in the remote server.
+- hosts: webservers
+  tasks:
+    - name:
+      package_facts:
+        manager: "auto"
+    - name:
+      debug: var=ansible_facts.packages

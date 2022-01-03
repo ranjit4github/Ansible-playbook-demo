@@ -1,0 +1,13 @@
+---
+- hosts: webservers
+  remote_user: root
+  vars:
+    name: Ranjit
+  vars_files:
+    - /vars/name.yml
+
+  tasks:
+  - name: Print out name
+    shell: echo {{name}}
+  - name: Print value from a file
+    shell: echo {{lname}}

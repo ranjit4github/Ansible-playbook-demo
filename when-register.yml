@@ -1,0 +1,12 @@
+- hosts: AppServer
+  tasks:
+    - name: "Show system date if it is Ubuntu machine"
+      command: date
+    - name: "copy shell script"
+      copy: src=/home/centos/test.sh dest=/opt mode=0755
+    - name: "Execute script if it is Amazon Linux"
+      yum: name=git state=present
+      when: ansible_facts['os_family']=="RedHat"
+    - name: "Execute script if it CentOS"
+      yum: name=git state=present 
+      when: ansible_facts['os_family']=="Windows"

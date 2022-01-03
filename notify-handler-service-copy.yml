@@ -1,0 +1,30 @@
+---
+- hosts: webservers
+  become: true
+  tasks:
+    - name: install web server
+      yum: name={{item}} state=present update_cache=yes
+      with_items:
+        - httpd
+        - git
+
+    - name: ensure apache2 stopped
+      service: name=httpd state=stopped enabled=yes
+
+    - name: Create a symlink
+      file: src=/etc/httpd/conf/httpd.conf dest=/home/ec2-user/httpd.conf state=link
+      notify: restart httpd
+
+    - name: copy apache virtual host config
+      copy: src=/var/www/html/index.html dest=/var/www/html/index.html mode=755
+      notify: restart httpd
+
+  handlers:
+    - name: restart httpd
+      service: name=httpd state=restarted
+
+
+
+-----------------
+#List the used port in Linux
+sudo lsof -i -P|grep LISTEN

@@ -1,0 +1,5 @@
+---
+ - hosts: all
+   tasks:
+    - command: hostname
+    - command: date

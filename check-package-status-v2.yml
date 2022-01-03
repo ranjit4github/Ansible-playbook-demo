@@ -1,0 +1,15 @@
+---
+#Yaml file to check the packages installed or not in the remote server.
+#Execute this as: ansible-playbook -e '{ "pkgs": ["httpd", "java"] }' check-installed-v2.yml
+#Pass the package names which you want to check.
+
+  - hosts: webservers
+    tasks:
+      - name: get the rpm package facts
+        package_facts:
+          manager: "auto"
+          
+      - name: Package status
+        debug:
+          msg: "{{ item }} {{ 'installed' if item in ansible_facts.packages else 'not installed' }}"
+        loop: "{{ pkgs | default([]) }}"

@@ -1,0 +1,13 @@
+---
+ - hosts: webservers
+   become: true
+   tasks:
+     - name: Download Java
+       get_url:
+         url: http://download.oracle.com/otn-pub/java/jdk/8u60-b27/jre-8u60-linux-x64.rpm
+         dest: /opt/jre-8u60-linux-x64.rpm
+
+     - name: Install Java
+       yum:
+         name: /opt/jre-8u60-linux-x64.rpm
+         state: present

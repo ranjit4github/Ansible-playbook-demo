@@ -1,0 +1,6 @@
+---
+ - hosts: AppServer
+   become: true
+   tasks:
+    - name: Install git
+      yum: name=git state=removed

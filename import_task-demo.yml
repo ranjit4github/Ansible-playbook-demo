@@ -1,0 +1,9 @@
+- hosts: webservers
+  tasks:
+    - name: For centos or, RedHat Linux
+      import_tasks: redhat.yml
+      when: ansible_facts['os_family']|lower == 'redhat'
+
+    - name: For ubuntu or, debian Linux
+      import_tasks: debian.yml
+      when: ansible_facts['os_family']|lower == 'debian'

@@ -1,0 +1,7 @@
+- hosts: all
+  tasks:
+      - shell: cat /home/ubuntu/test.txt
+        register: test_cont
+
+      - shell: echo "File test.txt contains the word Hello"
+        when: test_cont.stdout.find('Hello') != -1
